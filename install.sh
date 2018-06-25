@@ -14,19 +14,19 @@ then
 fi
 
 echo Installing dependencies
-export DEBIAN_FRONTEND=noninteractive && \
 sudo add-apt-repository -y ppa:heyarje/makemkv-beta && \
 sudo add-apt-repository -y ppa:stebbins/handbrake-releases && \
 sudo add-apt-repository -y ppa:mc3man/xerus-media && \
 sudo apt update && \
 sudo apt install -y makemkv-bin makemkv-oss && \
 sudo apt install -y handbrake-cli libavcodec-extra && \
+sudo debconf-set-selections <<< "postfix postfix/mailname string example.com" && \
 sudo debconf-set-selections <<< "postfix postfix/main_mailer_type string 'No configuration'" && \
 sudo apt install -y abcde flac imagemagick glyrc cdparanoia && \
 sudo apt install -y at && \
 sudo apt install -y python3 python3-pip && \
+sudo debconf-set-selections <<< "libdvd-pkg libdvd-pkg/post-invoke_hook-install boolean true"
 sudo apt-get install -y libdvd-pkg && \
-sudo dpkg-reconfigure libdvd-pkg && \
 sudo pip3 install -r requirements.txt
 
 echo Installing rules ad services
